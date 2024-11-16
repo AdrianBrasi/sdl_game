@@ -32,6 +32,7 @@ void handle_input(){
 
 			case SDL_QUIT:
 				printf("Game quitting\n");
+				game.running = false;
 				exit(0);
 				break;
 		}
