@@ -7,7 +7,7 @@
 
 #include "input.h"
 #include "game.h"
-#include "render.h"
+#include "text.h"
 
 void cleanup();
 
@@ -49,14 +49,22 @@ int main() {
 		exit(1);
 	}
 
-	const char* main_menu_font = "./fonts/ComicMono.ttf";
-	load_font(main_menu_font);
+	// TODO: replace this with create_text function after making it
+	Text main_text = {
+		.filepath = "./fonts/ibm.ttf",
+		.content = "This is the fucking game",
+		.fontsize = 30,
+		.color = {255, 255, 255, 255},
+		.x = 700,
+		.y = 1000
+	};
 
 	while (game.running) {
 		SDL_SetRenderDrawColor(game.renderer, 96, 128, 255, 255);
 		SDL_RenderClear(game.renderer);
 
 		handle_input();
+		render_text(&main_text, game.renderer);
 
 		SDL_RenderPresent(game.renderer);
 		SDL_Delay(16);
