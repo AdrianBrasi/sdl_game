@@ -5,13 +5,13 @@
 #define MAX_TEXT_LENGTH 2048
 
 typedef struct {
-	char* 			filepath;
+	TTF_Font* 		font;
 	char* 			content;
 	SDL_Color		color;
 	int 			x, y; 
-	int 			fontsize;
-	int 			tflags;
 } Text;
+
+// TODO: create button class that has a Text struct as a field
 
 typedef enum {
 	TEXT_DEFAULT = 0,
@@ -21,16 +21,8 @@ typedef enum {
 	TEXT_RIGHT_ALIGNED = 1 << 2,
 } tflags;
 
-void create_text(
-	Text* text,
-	char* filepath,
-	char* content,
-	int fontsize,
-	SDL_Color color,
-	int x, int y,
-	int tflags
-);
-
-void render_text(const Text* text, SDL_Renderer* renderer);
 static char* get_name_from_filepath(const char* filepath);
-static TTF_Font* load_font(const char* filepath, int fontsize);
+TTF_Font* load_font(const char* filepath, int fontsize);
+void place_static_text(SDL_Window* window, Text* text, int xpos, int ypos, int tflags);
+void render_text(const Text* text, SDL_Renderer* renderer);
+// TODO: place_floating_text

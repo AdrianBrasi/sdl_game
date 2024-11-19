@@ -9,6 +9,8 @@
 #include "game.h"
 #include "text.h"
 
+//TODO: create primitive gamestate loading and freeing functions
+
 void cleanup();
 
 Game game;
@@ -49,15 +51,27 @@ int main() {
 		exit(1);
 	}
 
-	// TODO: replace this with create_text function after making it
+	TTF_Font* main_text_font = load_font("./fonts/ibm.ttf", 50);
+
 	Text main_text = {
-		.filepath = "./fonts/ibm.ttf",
+		.font = main_text_font,
 		.content = "This is the fucking game",
-		.fontsize = 30,
 		.color = {255, 255, 255, 255},
 		.x = 700,
 		.y = 1000
 	};
+
+	place_static_text(game.window, &main_text, 0, 0, TEXT_CENTERED);
+
+	Text other_text = {
+		.font = main_text_font,
+		.content = "x_center test",
+		.color = {255, 255, 255, 255},
+		.x = 1000,
+		.y = 1000,
+	};
+
+	place_static_text(game.window, &other_text, 0, 1000, TEXT_CENTERED_X);
 
 	while (game.running) {
 		SDL_SetRenderDrawColor(game.renderer, 96, 128, 255, 255);
@@ -65,10 +79,13 @@ int main() {
 
 		handle_input();
 		render_text(&main_text, game.renderer);
+		render_text(&other_text, game.renderer);
 
 		SDL_RenderPresent(game.renderer);
 		SDL_Delay(16);
 	}
+
+	TTF_CloseFont(main_text_font);
 
 	return 0;
 }
