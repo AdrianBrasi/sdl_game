@@ -30,8 +30,12 @@ typedef struct {
 
 } Game;
 
-enum gamestate {
-	GS_TEST_1,
-	GS_TEST_2,
-};
+// Gamestate handling
+typedef struct Scene {
+    void (*init)(struct Scene* self);
+    void (*update)(struct Scene* self);
+    void (*render)(struct Scene* self);
+    void (*cleanup)(struct Scene* self);
+    void* data;
+} Scene;
 

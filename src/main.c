@@ -58,6 +58,7 @@ int main() {
 	}
 
 	TTF_Font* main_text_font = load_font("./fonts/ibm.ttf", 50);
+	TTF_Font* other_text_font = load_font("./fonts/ibm.ttf", 29);
 
 	Text main_text = {
 		.font = main_text_font,
@@ -70,7 +71,7 @@ int main() {
 	place_static_text(game.window, &main_text, 0, 0, TEXT_CENTERED);
 
 	Text other_text = {
-		.font = main_text_font,
+		.font = other_text_font,
 		.content = "x_center test",
 		.color = {255, 255, 255, 255},
 		.x = 1000,
