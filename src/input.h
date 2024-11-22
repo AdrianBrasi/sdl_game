@@ -1,5 +1,11 @@
+#ifdef __APPLE__
+#include <SDL.h>
+#include <SDL_ttf.h>
+#else
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_ttf.h>
+#endif
+
 
 void handle_input();
 void log_keyboard_input(SDL_KeyboardEvent* event);

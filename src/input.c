@@ -1,6 +1,3 @@
-#include <SDL2/SDL_events.h>
-#include <SDL2/SDL_keyboard.h>
-#include <SDL2/SDL_mouse.h>
 #include <stdio.h>
 
 #include "game.h"

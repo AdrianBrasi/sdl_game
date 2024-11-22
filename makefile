@@ -1,8 +1,24 @@
+CC = gcc
+
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Darwin)
+    CFLAGS = -I/opt/homebrew/include/SDL2
+    LDFLAGS = -L/opt/homebrew/lib -lSDL2 -lSDL2_ttf
+else
+    CFLAGS = -I/usr/include/SDL2
+    LDFLAGS = -L/usr/lib -lSDL2 -lSDL2_ttf
+endif
+
+SRC = src/*.c
+OUT = out/game
+
 build:
-	gcc src/*.c -lSDL2 -ldl -lSDL2_ttf -o out/game
+	$(CC) $(SRC) $(CFLAGS) $(LDFLAGS) -o $(OUT)
 
 run:
-	./out/game
+	./$(OUT)
 
 clean:
-	rm /out/game
+	rm -f $(OUT)
+

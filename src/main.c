@@ -1,5 +1,11 @@
+#ifdef __APPLE__
+#include <SDL.h>
+#include <SDL_ttf.h>
+#else
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#endif
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,7 +77,7 @@ int main() {
 		.y = 1000,
 	};
 
-	place_static_text(game.window, &other_text, 0, 1000, TEXT_CENTERED_X);
+	place_static_text(game.window, &other_text, 0, 500, TEXT_CENTERED_X);
 
 	while (game.running) {
 		SDL_SetRenderDrawColor(game.renderer, 96, 128, 255, 255);

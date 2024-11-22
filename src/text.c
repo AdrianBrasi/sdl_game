@@ -1,7 +1,4 @@
 #include "game.h"
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_video.h>
 #include <stdio.h>
 #include "text.h"
 
