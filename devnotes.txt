@@ -1,0 +1,24 @@
+Near-term goals:
+
+1. Input
+I need to have generic input handling like pausing and quitting covered, 
+but also have bespoke input for each scene 
+
+2. Scene switching
+Once input is figured out, I can assign a temporary keymap to invoke
+'change_scene' which will swap scenes that have placeholder text. 
+I'll verify that all of my resources are being freed properly with
+printf'ing the shit out of every function call.
+
+3. Data Structures
+It's about time to address this. I can't be manually freeing every
+resource I create. Soon, I will have entities that I will be pushing
+and popping from an array... I THINK... On scene change, I'll have to free all of
+those resources with a for-loop... I GUESS... Again, I'll use the text that I've 
+already got up and running to test out my resource management.
+
+
+Once these three things are addressed, I'll move on to addressing things like 
+drawing shapes, loading pngs, doing physics, all that fun shit. I did text first
+because it's simple, and now I can use it as the testing dummy for all of my 
+state management in the game. 
