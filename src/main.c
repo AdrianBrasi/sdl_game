@@ -13,13 +13,13 @@
 
 #include "input.h"
 #include "game.h"
-#include "text.h"
 
 //TODO: create primitive gamestate loading and freeing functions
 
 void cleanup();
 
 Game game;
+SceneManager game_manager = {0};
 
 int main() {
 
@@ -57,42 +57,29 @@ int main() {
 		exit(1);
 	}
 
-	TTF_Font* main_text_font = load_font("./fonts/ibm.ttf", 50);
-	TTF_Font* other_text_font = load_font("./fonts/ibm.ttf", 29);
-
-	Text main_text = {
-		.font = main_text_font,
-		.content = "This is the fucking game",
-		.color = {255, 255, 255, 255},
-		.x = 700,
-		.y = 1000
+	Scene main_menu = {
+		.init = main_menu_init,
+		.update = main_menu_update,
+		.render = main_menu_render,
+		.cleanup = main_menu_cleanup,
+		.data = NULL
 	};
 
-	place_static_text(game.window, &main_text, 0, 0, TEXT_CENTERED);
-
-	Text other_text = {
-		.font = other_text_font,
-		.content = "x_center test",
-		.color = {255, 255, 255, 255},
-		.x = 1000,
-		.y = 1000,
-	};
-
-	place_static_text(game.window, &other_text, 0, 500, TEXT_CENTERED_X);
+	game_manager.current_scene = &main_menu;
+	game_manager.current_scene->init(game_manager.current_scene);
 
 	while (game.running) {
-		SDL_SetRenderDrawColor(game.renderer, 96, 128, 255, 255);
-		SDL_RenderClear(game.renderer);
-
-		handle_input();
-		render_text(&main_text, game.renderer);
-		render_text(&other_text, game.renderer);
-
-		SDL_RenderPresent(game.renderer);
-		SDL_Delay(16);
+		if (game_manager.current_scene->update) {
+			game_manager.current_scene->update(game_manager.current_scene);
+		}
+		if (game_manager.current_scene->render) {
+			game_manager.current_scene->render(game_manager.current_scene);
+		}
 	}
 
-	TTF_CloseFont(main_text_font);
+	if (game_manager.current_scene->cleanup) {
+		game_manager.current_scene->cleanup(game_manager.current_scene);
+	}
 
 	return 0;
 }

@@ -1,3 +1,5 @@
+#pragma once
+
 #ifdef __APPLE__
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -7,6 +9,7 @@
 #endif
 
 #include <stdbool.h>
+#include "text.h"
 
 #define WIN_W 1280
 #define WIN_H 720
@@ -30,7 +33,7 @@ typedef struct {
 
 } Game;
 
-// Gamestate handling
+/// Gamestate handling ///
 typedef struct Scene {
     void (*init)(struct Scene* self);
     void (*update)(struct Scene* self);
@@ -39,3 +42,20 @@ typedef struct Scene {
     void* data;
 } Scene;
 
+typedef struct SceneManager {
+	 Scene* current_scene;
+} SceneManager;
+
+void change_scene(SceneManager* manager, Scene* new_scene);
+
+/// Main Menu ///
+typedef struct {
+	Text title;
+	Text sub_title;
+	//TODO: Button
+} MainMenuData;
+
+void main_menu_init(Scene* self);
+void main_menu_update(Scene* self);
+void main_menu_render(Scene* self);
+void main_menu_cleanup(Scene* self);
