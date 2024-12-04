@@ -48,6 +48,8 @@ typedef struct SceneManager {
 
 void change_scene(SceneManager* manager, Scene* new_scene);
 
+/// SCENE HEADERS ///
+
 /// Main Menu ///
 typedef struct {
 	Text title;
@@ -59,3 +61,13 @@ void main_menu_init(Scene* self);
 void main_menu_update(Scene* self);
 void main_menu_render(Scene* self);
 void main_menu_cleanup(Scene* self);
+
+/// Level One ///
+typedef struct {
+	Text test_text;
+} LevelOneData;
+
+void level_one_init(Scene* self);
+void level_one_update(Scene* self);
+void level_one_render(Scene* self);
+void level_one_cleanup(Scene* self);

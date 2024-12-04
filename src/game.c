@@ -7,6 +7,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 extern Game game;
 
@@ -23,6 +24,7 @@ void change_scene(SceneManager* manager, Scene* new_scene) {
 		manager->current_scene->init(manager->current_scene);
 	}
 }
+
 
 void main_menu_init(Scene *self) {
 	MainMenuData* data = malloc(sizeof(MainMenuData));
@@ -43,7 +45,6 @@ void main_menu_init(Scene *self) {
 
 void main_menu_update(Scene* self) {
 	MainMenuData* data = (MainMenuData*)self->data;
-
 	handle_input();
 }
 
@@ -66,5 +67,40 @@ void main_menu_cleanup(Scene* self) {
 	free(data->title.content);
 	free(data->sub_title.content);
 	TTF_CloseFont(data->title.font);
+	free(data);
+}
+
+/// SCENE 2: LEVEL ONE ///
+
+
+void level_one_init(Scene* self) {
+	LevelOneData* data = malloc(sizeof(LevelOneData));
+	TTF_Font* font = load_font("./fonts/ibm.ttf", 50);
+	data->test_text.font = font;
+	data->test_text.content = strdup("Level One...");
+	data->test_text.color = (SDL_Color){255, 255, 255, 255};
+	place_static_text(game.window, &data->test_text, 0, 0, TEXT_CENTERED);
+}
+
+void level_one_update(Scene* self) {
+	LevelOneData* data = (LevelOneData*)self->data;
+	handle_input();
+}
+
+void level_one_render(Scene* self) {
+	LevelOneData* data = (LevelOneData*)self->data;
+	SDL_SetRenderDrawColor(game.renderer, 96, 128, 255, 255);
+	SDL_RenderClear(game.renderer);
+
+	render_text(&data->test_text, game.renderer);
+
+	SDL_RenderPresent(game.renderer);
+	SDL_Delay(16);
+}
+
+void level_one_cleanup(Scene* self) {
+	LevelOneData* data = (LevelOneData*)self->data;
+	free(data->test_text.content);
+	TTF_CloseFont(data->test_text.font);
 	free(data);
 }

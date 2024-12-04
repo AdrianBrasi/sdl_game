@@ -1,9 +1,12 @@
+#include <SDL2/SDL_keycode.h>
 #include <stdio.h>
 
 #include "game.h"
 #include "input.h"
 
 extern Game game;
+extern SceneManager game_manager;
+extern Scene level_one;
 
 void handle_input(){
 	SDL_Event event;
@@ -20,7 +23,7 @@ void handle_input(){
 
 			case SDL_MOUSEBUTTONDOWN:
 			mouse_down(&event.button);
-				log_mouse_input(&event.button);
+			log_mouse_input(&event.button);
 			break;
 
 			case SDL_MOUSEBUTTONUP:
@@ -53,6 +56,10 @@ static void key_down(SDL_KeyboardEvent *event) {
 	if (event->repeat == 0 && event->keysym.scancode < MAX_KEYBOARD_KEYS)
 	{
 		game.keyboard[event->keysym.scancode] = 1;
+	}
+	if (event->keysym.sym == SDLK_F12) {
+		change_scene(&game_manager, &level_one);
+		level_one_cleanup(&level_one);
 	}
 }
 

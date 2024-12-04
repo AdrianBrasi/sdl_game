@@ -21,6 +21,21 @@ void cleanup();
 Game game;
 SceneManager game_manager = {0};
 
+Scene main_menu = {
+	.init = main_menu_init,
+	.update = main_menu_update,
+	.render = main_menu_render,
+	.cleanup = main_menu_cleanup,
+	.data = NULL
+};
+
+Scene level_one = {
+	.init = level_one_init,
+	.update = level_one_update,
+	.render = level_one_render,
+	.cleanup = level_one_cleanup,
+};
+
 int main() {
 
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -57,13 +72,6 @@ int main() {
 		exit(1);
 	}
 
-	Scene main_menu = {
-		.init = main_menu_init,
-		.update = main_menu_update,
-		.render = main_menu_render,
-		.cleanup = main_menu_cleanup,
-		.data = NULL
-	};
 
 	game_manager.current_scene = &main_menu;
 	game_manager.current_scene->init(game_manager.current_scene);
